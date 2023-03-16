@@ -1,7 +1,7 @@
 <script setup>
 import { images } from "./data.js";
 
-import { ref, watchEffect } from "vue";
+import { ref } from "vue";
 
 const position = ref(0);
 const slider = ref();
@@ -32,20 +32,30 @@ const rueda = () => {
 </script>
 
 <template>
-  <div
+  <main
     @scroll="rueda"
     ref="slider"
-    class="snap-y snap-mandatory h-screen overflow-hidden scroll-smooth"
+    class="snap-y snap-mandatory h-screen overflow-hidden scroll-smooth relative"
   >
-    <div class="snap-start h-screen" v-for="(image, i) in images" :key="i">
+    <div
+      class="snap-start h-screen relative"
+      v-for="(image, i) in images"
+      :key="i"
+    >
+      <div
+        class="absolute bottom-0 bg-gradient-to-t from-black/80 to-transparent w-full h-96"
+      ></div>
+      <div class="absolute bottom-0 max-w-2xl md:p-16 p-8">
+        <h1 class="text-white text-4xl">{{ image.title }}</h1>
+      </div>
       <img
         class="w-full h-full object-cover object-top"
         :src="image.url[0]"
         alt=""
       />
     </div>
-  </div>
-  <div
+  </main>
+  <nav
     class="absolute top-0 right-10 h-screen z-50 flex flex-col justify-center gap-8"
   >
     <div class="flex flex-col items-center gap-2">
@@ -57,7 +67,7 @@ const rueda = () => {
       ></button>
     </div>
 
-    <button class="" @click="bajar">
+    <button @click="bajar">
       <svg
         class="fill-white/80 w-10 h-10"
         xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +80,7 @@ const rueda = () => {
         ></path>
       </svg>
     </button>
-  </div>
+  </nav>
 </template>
 
 <style scoped></style>
